@@ -26,6 +26,8 @@ const emptyStateEl = document.getElementById('empty-state');
 const statusbarEl = document.getElementById('statusbar');
 const formEl = document.getElementById('add-form');
 const inputEl = document.getElementById('url-input');
+const folderPathEl = document.getElementById('folder-path');
+const folderBtnEl = document.getElementById('folder-btn');
 
 function displayName(item) {
   if (item.output_path) {
@@ -183,6 +185,37 @@ async function loadInitial() {
   }
 }
 
+async function loadFolder() {
+  try {
+    const res = await fetch(`${API_BASE}/carpeta-destino`);
+    const data = await res.json();
+    folderPathEl.textContent = data.path;
+    folderPathEl.title = data.path;
+  } catch {
+    folderPathEl.textContent = '(sin conexión)';
+  }
+}
+
+async function changeFolder() {
+  if (!window.electronAPI) return; // por si se abre fuera de Electron
+  const chosen = await window.electronAPI.elegirCarpeta();
+  if (!chosen) return; // el usuario canceló el diálogo
+
+  try {
+    const res = await fetch(`${API_BASE}/carpeta-destino`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: chosen }),
+    });
+    const data = await res.json();
+    folderPathEl.textContent = data.path;
+    folderPathEl.title = data.path;
+  } catch {
+    statusbarEl.textContent = 'No se pudo cambiar la carpeta (¿está corriendo python run.py?)';
+  }
+}
+
+
 async function addDownload(url) {
   try {
     const res = await fetch(`${API_BASE}/descargas`, {
@@ -238,6 +271,7 @@ function connectWebSocket() {
   ws.addEventListener('error', () => ws.close());
 }
 
+
 formEl.addEventListener('submit', (event) => {
   event.preventDefault();
   const url = inputEl.value.trim();
@@ -246,5 +280,8 @@ formEl.addEventListener('submit', (event) => {
   inputEl.value = '';
 });
 
+folderBtnEl.addEventListener('click', changeFolder);
+
 loadInitial();
+loadFolder();
 connectWebSocket();

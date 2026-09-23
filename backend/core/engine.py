@@ -31,6 +31,14 @@ class DownloadManager:
             hilo = threading.Thread(target=self._worker_loop, daemon=True)
             hilo.start()
 
+
+    def set_dest_folder(self, path: str):
+        """Cambia la carpeta de destino para las descargas que se
+        añadan a partir de ahora (las que ya estén en curso no se
+        mueven)."""
+        os.makedirs(path, exist_ok=True)
+        self.dest_folder = path
+
     def register_plugin(self, plugin: DownloadPlugin):
         # El orden importa: se usa el primer plugin cuyo can_handle()
         # devuelva True, así que los plugins "catch-all" (como

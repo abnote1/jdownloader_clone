@@ -88,6 +88,55 @@ body {
   outline: 2px solid var(--c-teal);
   outline-offset: 2px;
 }
+.add-form button:focus-visible,
+
+
+#url-input:focus-visible {
+  outline: 2px solid var(--c-teal);
+  outline-offset: 2px;
+}
+
+.folder-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.folder-label {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.folder-path {
+  font-family: var(--font-mono);
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+#folder-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+#folder-btn:hover {
+  color: var(--text);
+  border-color: var(--c-teal);
+}
+
+/* --- lista de descargas --- */
 
 /* --- lista de descargas --- */
 

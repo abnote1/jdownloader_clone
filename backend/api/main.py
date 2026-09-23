@@ -102,6 +102,21 @@ def reanudar_descarga(item_id: str):
     return {"ok": True}
 
 
+class CarpetaDestino(BaseModel):
+    path: str
+
+
+@app.get("/carpeta-destino")
+def obtener_carpeta_destino():
+    return {"path": manager.dest_folder}
+
+
+@app.post("/carpeta-destino")
+def cambiar_carpeta_destino(payload: CarpetaDestino):
+    manager.set_dest_folder(payload.path)
+    return {"ok": True, "path": manager.dest_folder}
+
+    
 
 @app.websocket("/progreso")
 async def progreso(websocket: WebSocket):
@@ -114,3 +129,4 @@ async def progreso(websocket: WebSocket):
             await websocket.receive_text()
     except WebSocketDisconnect:
         active_sockets.remove(websocket)
+
