@@ -52,6 +52,35 @@ DownloadManager (Cola, Threading, Dispatch)
 
 ---
 
+## Skills Disponibles 🔧
+
+El proyecto cuenta con **skills especializados** que extienden la funcionalidad de Copilot para tareas recurrentes.
+
+**Ubicación**: `.github/skills/`  
+**Documentación completa**: Ver [docs/skills-orquestacion.md](../../docs/skills-orquestacion.md)
+
+### Skills Implementados
+
+| Skill | Descripción | Uso |
+|-------|-------------|-----|
+| **commit-message** | Genera mensajes de commit siguiendo Conventional Commits | `#commit-message: descripción del cambio` |
+
+### Cómo Invocar un Skill
+
+De forma natural en chat:
+```
+Usa la skill commit-message para: Agregué validación en el plugin de YouTube
+```
+
+O explícitamente:
+```
+#commit-message: Agregué validación en el plugin de YouTube
+```
+
+El skill generará un mensaje estructurado siguiendo el estándar del proyecto. Ver [docs/skills-orquestacion.md](../../docs/skills-orquestacion.md) para más detalles.
+
+---
+
 ## Componentes Clave
 
 ### 1. DownloadManager (`backend/engine.py`)
