@@ -1,0 +1,32 @@
+{
+  "name": "jdownloader-clone-ui",
+  "version": "0.1.0",
+  "description": "UI de escritorio (Electron) para el gestor de descargas",
+  "main": "main.js",
+  "author": {
+    "name": "hermes",
+    "email": "hermes@example.com"
+  },
+  "homepage": "https://github.com/hermes/jdownloader-clone",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^32.0.0",
+    "electron-builder": "^25.0.0"
+  },
+  "build": {
+    "appId": "com.local.jdownloader-clone",
+    "productName": "Gestor de Descargas",
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*"
+    ],
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Network"
+    }
+  }
+}

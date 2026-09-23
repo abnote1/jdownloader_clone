@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestor de descargas</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <form id="add-form" class="add-form">
+      <input
+        id="url-input"
+        type="text"
+        placeholder="Pega un enlace: vídeo, página con imágenes, archivo directo…"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button type="submit">Añadir</button>
+    </form>
+  </header>
+
+  <main class="list-wrap">
+    <div id="empty-state" class="empty-state">
+      Todavía no hay descargas. Pega un enlace arriba para empezar.
+    </div>
+    <ul id="download-list" class="download-list"></ul>
+  </main>
+
+  <footer class="statusbar" id="statusbar">
+    0 elementos
+  </footer>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

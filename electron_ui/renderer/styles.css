@@ -1,0 +1,247 @@
+:root {
+  --bg: #14171C;
+  --panel: #1B1F26;
+  --border: #2A2F38;
+  --text: #E8EAED;
+  --text-muted: #8B92A0;
+
+  --c-teal: #4FB6A8;
+  --c-amber: #E0B15C;
+  --c-green: #6FCF87;
+  --c-red: #E2574C;
+  --c-muted: #565D68;
+
+  --font-sans: -apple-system, "Segoe UI", Inter, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- barra superior --- */
+
+.topbar {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.add-form {
+  display: flex;
+  gap: 10px;
+}
+
+#url-input {
+  flex: 1;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+#url-input::placeholder {
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+}
+
+#url-input:focus {
+  outline: none;
+  border-color: var(--c-teal);
+}
+
+.add-form button {
+  background: var(--c-teal);
+  color: #0B2521;
+  border: none;
+  border-radius: 6px;
+  padding: 0 20px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-sans);
+  cursor: pointer;
+}
+
+.add-form button:hover {
+  filter: brightness(1.08);
+}
+
+.add-form button:focus-visible,
+#url-input:focus-visible {
+  outline: 2px solid var(--c-teal);
+  outline-offset: 2px;
+}
+
+/* --- lista de descargas --- */
+
+.list-wrap {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.empty-state {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 13px;
+}
+
+.download-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.download-row {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) 90px 90px 78px 28px 28px;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.download-row:hover {
+  background: var(--panel);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--dot-color, var(--c-muted));
+  justify-self: center;
+}
+
+.row-main {
+  min-width: 0;
+}
+
+.row-name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.progress-track {
+  flex: 1;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--fill-color, var(--c-teal));
+  transition: width 0.3s ease;
+}
+
+.row-status-label {
+  font-size: 12px;
+  color: var(--label-color, var(--text-muted));
+  white-space: nowrap;
+}
+
+.row-speed,
+.row-size {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.row-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  text-align: center;
+  white-space: nowrap;
+  justify-self: start;
+}
+
+.row-cancel,
+.row-pause-resume {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 4px;
+  border-radius: 4px;
+  visibility: hidden;
+}
+
+.download-row:hover .row-cancel,
+.download-row:hover .row-pause-resume {
+  visibility: visible;
+}
+
+.row-cancel:hover {
+  color: var(--c-red);
+  background: var(--border);
+}
+
+.row-pause-resume:hover {
+  color: var(--c-teal);
+  background: var(--border);
+}
+
+.row-error {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--c-red);
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- barra inferior --- */
+
+.statusbar {
+  flex-shrink: 0;
+  padding: 8px 20px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-fill {
+    transition: none;
+  }
+}
