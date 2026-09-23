@@ -370,9 +370,24 @@ async def crear_descarga(url: str):
 
 ### Commits
 
-- Usar mensajes claros: `[FEATURE] Agregar plugin X` o `[FIX] Corregir timeout`
-- Referenci issues: `Closes #123`
-- Una funcionalidad por commit cuando sea posible
+**Usa la skill `commit-message` (`.github/skills/commit-message/SKILL.md`) para generar mensajes siguiendo Conventional Commits:**
+
+```
+<tipo>(ámbito): resumen imperativo ≤50 chars
+
+[cuerpo opcional explicando el PORQUÉ]
+
+[Closes #issue | Refs #123]
+```
+
+**Tipos**: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `style`, `perf`, `ci`, `revert`
+
+**Ejemplos:**
+- ✓ `feat(backend): añadir plugin para Vimeo`
+- ✓ `fix(engine): resolver timeout en descargas concurrentes`
+- ✓ `docs(readme): actualizar instrucciones de instalación`
+
+Referencia issues: `Closes #123` (cierra automáticamente en merge)
 
 ### PRs
 
