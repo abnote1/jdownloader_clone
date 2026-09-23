@@ -32,6 +32,10 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
+# Ignore additional node_modules/dist patterns
+**/node_modules/
+**/dist/
+
 # IDE
 .vscode/
 .idea/
