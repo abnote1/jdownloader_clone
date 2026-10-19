@@ -1,10 +1,17 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const { spawn } = require('child_process');
 const path = require('path');
+const crypto = require('crypto');
 
 const PROJECT_ROOT = path.join(__dirname, '..');
 const PYTHON_BIN = path.join(PROJECT_ROOT, 'venv', 'bin', 'python');
 const BACKEND_SCRIPT = path.join(PROJECT_ROOT, 'run.py');
+
+// Secreto compartido con el backend: sin él la API rechaza cualquier
+// petición, así que otras webs abiertas en el navegador no pueden
+// usarla. Si ya viene en el entorno (backend arrancado a mano con el
+// mismo JD_API_TOKEN) se reutiliza.
+const API_TOKEN = process.env.JD_API_TOKEN || crypto.randomBytes(32).toString('hex');
 
 let backendProcess = null;
 let mainWindow = null;
@@ -12,6 +19,7 @@ let mainWindow = null;
 function startBackend() {
   backendProcess = spawn(PYTHON_BIN, [BACKEND_SCRIPT], {
     cwd: PROJECT_ROOT,
+    env: { ...process.env, JD_API_TOKEN: API_TOKEN },
   });
 
   backendProcess.stdout.on('data', (data) => {
@@ -56,6 +64,8 @@ function createWindow() {
 
   mainWindow.loadFile(path.join(__dirname, 'renderer', 'index.html'));
 }
+
+ipcMain.handle('obtener-token', () => API_TOKEN);
 
 ipcMain.handle('elegir-carpeta', async () => {
   const result = await dialog.showOpenDialog(mainWindow, {

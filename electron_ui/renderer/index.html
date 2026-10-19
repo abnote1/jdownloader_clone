@@ -11,11 +11,12 @@
       <input
         id="url-input"
         type="text"
-        placeholder="Pega un enlace: vídeo, página con imágenes, archivo directo…"
+        placeholder="Pega un enlace: vídeo, Drive, MEGA, capítulo, página con imágenes, archivo…"
         autocomplete="off"
         spellcheck="false"
       />
-      <button type="submit">Añadir</button>
+      <button type="submit" title="Analiza el enlace y te deja elegir qué descargar">Añadir…</button>
+      <button type="button" id="direct-btn" class="secondary" title="Descarga lo que se detecte por defecto, sin preguntar">Directo</button>
     </form>
 
      <div class="folder-row">
@@ -35,6 +36,59 @@
   <footer class="statusbar" id="statusbar">
     0 elementos
   </footer>
+
+  <!-- Selector de contenido ("LinkGrabber") -->
+  <dialog id="grabber" class="grabber" aria-labelledby="grabber-title">
+    <header class="grabber-head">
+      <div class="grabber-titles">
+        <h2 id="grabber-title">Analizando enlace…</h2>
+        <div class="grabber-sub">
+          <span class="row-badge" id="grabber-plugin" hidden></span>
+          <span class="grabber-url" id="grabber-url"></span>
+        </div>
+      </div>
+      <button type="button" class="icon-btn" id="grabber-close" aria-label="Cerrar">✕</button>
+    </header>
+
+    <section class="grabber-loading" id="grabber-loading">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Buscando qué se puede descargar…</p>
+      <p class="muted">Las páginas web se abren en un navegador y pueden tardar hasta un minuto.</p>
+    </section>
+
+    <section class="grabber-error" id="grabber-error" hidden>
+      <p id="grabber-error-msg"></p>
+      <button type="button" class="secondary" id="grabber-direct">Intentar descargar sin analizar</button>
+    </section>
+
+    <section class="grabber-body" id="grabber-body" hidden>
+      <div class="grabber-tools">
+        <div class="type-chips" id="type-chips" role="group" aria-label="Tipos de contenido"></div>
+        <div class="grabber-tools-right">
+          <input type="search" id="grabber-filter" placeholder="Filtrar por nombre…" />
+          <button type="button" class="link-btn" id="sel-all">Todo</button>
+          <button type="button" class="link-btn" id="sel-none">Nada</button>
+        </div>
+      </div>
+      <div class="grabber-options">
+        <label id="format-wrap" hidden>Formato
+          <select id="grabber-format"></select>
+        </label>
+        <label>Guardar en subcarpeta
+          <input type="text" id="grabber-folder" spellcheck="false" placeholder="(ninguna)" />
+        </label>
+      </div>
+      <ul class="grabber-list" id="grabber-list"></ul>
+    </section>
+
+    <footer class="grabber-foot">
+      <span id="grabber-count" class="muted"></span>
+      <div class="grabber-actions">
+        <button type="button" class="secondary" id="grabber-cancel">Cancelar</button>
+        <button type="button" class="primary" id="grabber-ok" disabled>Descargar</button>
+      </div>
+    </footer>
+  </dialog>
 
   <script src="renderer.js"></script>
 </body>

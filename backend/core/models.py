@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional
+from typing import Optional, Dict, Any
 import uuid
 import time
 
@@ -29,6 +29,18 @@ class DownloadItem:
     output_path: Optional[str] = None
     plugin_name: Optional[str] = None
     dest_subfolder: Optional[str] = None
+    # id de la descarga "madre" (p. ej. el capítulo) cuando este item
+    # salió de expandir una página en varias imágenes.
+    parent_id: Optional[str] = None
+    # Si está puesto, el item se descarga con ese plugin sin volver a
+    # analizar la URL (p. ej. las imágenes de un capítulo -> direct_http).
+    plugin_forzado: Optional[str] = None
+    # video, audio, imagen, documento, comprimido, archivo
+    tipo: Optional[str] = None
+    # Datos para el plugin: formato elegido ("mejor", "720", "audio_mp3"...),
+    # claves de MEGA, cabeceras HTTP...
+    opciones: Dict[str, Any] = field(default_factory=dict)
+    intento: int = 0
     created_at: float = field(default_factory=time.time)
 
     def to_dict(self):
@@ -44,5 +56,9 @@ class DownloadItem:
             "error": self.error,
             "output_path": self.output_path,
             "plugin_name": self.plugin_name,
+            "parent_id": self.parent_id,
+            "tipo": self.tipo,
+            "formato": self.opciones.get("formato"),
+            "dest_subfolder": self.dest_subfolder,
             "created_at": self.created_at,
         }
